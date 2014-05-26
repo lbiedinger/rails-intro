@@ -7,11 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @ratings = params[:ratings] ? params[:ratings].map {|rating| rating[0]} : Movie.all_ratings
     if params[:sort_by]
-      @movies = Movie.order(params[:sort_by]).all
+      @movies = Movie.order(params[:sort_by]).where(rating: @ratings)
     else
-      @movies = Movie.all
+      @movies = Movie.where(rating: @ratings)
     end
+    @all_ratings = Movie.all_ratings
   end
 
   def new
