@@ -7,8 +7,6 @@ class MoviesController < ApplicationController
   end
 
   def index
-    #debugger
-
     @ratings = params[:ratings] ? params[:ratings].map {|rating| rating[0]} : session[:ratings]
     @ratings = Movie.all_ratings unless @ratings
     @sort_by = (params[:sort_by] ? params[:sort_by] : session[:sort_by] ? session[:sort_by] : nil)
